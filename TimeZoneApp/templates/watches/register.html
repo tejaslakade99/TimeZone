@@ -46,24 +46,25 @@
                                     <div id="email-check" class="col-md-12"></div>
                                     <div class="col-md-12 form-group p_star">
                                         <input type="text" class="form-control" id="fname" name="fname" value=""
-                                            placeholder="First Name" required>
+                                            placeholder="First Name" hx-post="{%  url 'check_fname' %}"
+                                               hx-target="#fname-check" hx-trigger="keyup" required>
                                     </div>
+                                    <div id="fname-check" class="col-md-12"></div>
                                     <div class="col-md-12 form-group p_star">
                                         <input type="text" class="form-control" id="lname" name="lname" value=""
-                                            placeholder="Last Name" required>
+                                            placeholder="Last Name" hx-post="{% url 'check_lname' %}"
+                                               hx-target="#lname-check" hx-trigger="keyup" required>
                                     </div>
+                                    <div id="lname-check" class="col-md-12"></div>
                                     <div class="col-md-12 form-group p_star">
                                         <input type="text" class="form-control" id="username" name="username"
-                                            placeholder="Username" hx-post="{% url 'check_username' %}" hx-target="#username-check" hx-trigger="keyup">
+                                            placeholder="Username"  hx-post="{% url 'check_username' %}"
+                                               hx-target="#username-check" hx-trigger="keyup">
                                     </div>
-                                    <div id="username-check"></div>
+                                    <div id="username-check" class="col-md-12 p_star"></div>
                                     <div class="col-md-12 form-group p_star">
                                         <input type="password" class="form-control" id="password" name="password" value=""
                                             placeholder="Password" required>
-                                    </div>
-                                    <div class="col-md-12 form-group p_star">
-                                        <input type="password" class="form-control" id="cpassword" name="password" value=""
-                                            placeholder="Confirm Password" required>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <div class="creat_account d-flex align-items-center">
