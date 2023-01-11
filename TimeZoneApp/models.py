@@ -19,6 +19,7 @@ class Contact(models.Model):
     email = models.CharField(max_length=200)
     content = models.TextField()
     subject = models.CharField(max_length=200)
+    timeStamp = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.name+":"+self.subject

@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 # Create your views here.
 from django.http import HttpResponse
 from .models import Profile
+from . import forms
 import uuid
 
 def index(request):
@@ -98,8 +99,21 @@ def auth_verify(request, auth_token):
     except Exception as e:
         print(e)
 
+
 def auth_success(request):
     return render(request, 'watches/auth_success.html')
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = forms.CreateContact(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('contactus')
+
+    form = forms.CreateContact()
+    return render(request, "watches/contact_us.html", {'form':form})
+
 
 # Dynamically checking the username and email exists or not
 

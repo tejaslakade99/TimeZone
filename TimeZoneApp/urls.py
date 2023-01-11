@@ -8,6 +8,7 @@ urlpatterns = [
     path('verify/<auth_token>', views.auth_verify, name='auth_verify'),
     path('success', views.auth_success, name='auth_success'),
     path('index', views.index, name='index'),
+    path('contactus', views.contact_us,name='contactus'),
     #path('error', views.auth_error, name='auth_error')
 
 ]
