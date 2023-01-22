@@ -10,9 +10,14 @@ from .models import Profile
 from . import forms
 import uuid
 
+
 def index(request):
-    print('You are ',request.session.get('user_id'))
-    return render(request,'watches/index.html')
+    print('You are ', request.session.get('user_id'))
+    flag = False
+    if request.session.get('user_id') is None:
+        flag = True
+    form = {'user': flag }
+    return render(request, 'watches/index.html', form)
 
 
 def register_user(request):
