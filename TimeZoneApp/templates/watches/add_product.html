@@ -1,0 +1,80 @@
+{% extends 'watches/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block main_content %}
+    <main>
+		<!-- Hero Area Start-->
+		<div class="slider-area ">
+			<div class="single-slider slider-height2 d-flex align-items-center">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="hero-cap text-center">
+								<h2>Add Products</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="whole-wrap">
+			<div class="container box_1170">
+				<div class="section-top-border">
+					<div class="row">
+						<div class="col-lg-8 col-md-8">
+							<h3 class="mb-30">Watch Details</h3>
+							<form method="post" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+								<div class="mt-10">
+									<input type="text" name="product_name" placeholder="Product Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Product Name'" class="single-input">
+								</div>
+								<div class="mt-10">
+									<input type="text" name="product_brand" placeholder="Brand" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Brand'" class="single-input" required>
+								</div>
+								<div class="mt-10">
+                                    <input type="number" name="product_price" step="0.01" class="single-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Price'" placeholder="Price" required="">
+                                </div>
+                                <div class="mt-10">
+                                    <input type="number" name="product_stocks" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="{{ form.product_stocks.value|default_if_none:'' }}" class="single-input" placeholder="Stocks" required>
+								</div>
+								<div class="mt-10">
+                                    <textarea name="product_description" cols="30" rows="9" class="single-textarea" id="description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Description'" placeholder="Description" required="" spellcheck="false"></textarea>
+								</div>
+								<div class="mt-10">
+                                    <figure class="single-popular-items mb-50">
+                                        <img id="chosen-image" style="max-height: 400px;max-width: 325px;">
+                                    </figure>
+									{% render_field form.product_thumbnail id="upload-button" class="genric-btn" style="display: none;" %}
+                                    <label for="upload-button" class="genric-btn danger-border" onmouseover="this.style.color='white'" onmouseleave="this.style.color='#f44a40'">
+                                        <i class="fa-sharp fa-solid fa-arrow-up-from-bracket"></i> Choose a Thumbnail</label>
+								</div>
+                                <div class="mt-10">
+                                    <div id="chosen-images" class="row gallery-item">
+
+                                    </div>
+
+									<input name="images" onchange="preview()" type="file" id="upload-button2" class="genric-btn info-border" style="display: none;" accept="image/*" multiple required>
+
+									<label for="upload-button2" class="genric-btn danger-border" onmouseover="this.style.color='white'" onmouseleave="this.style.color='#f44a40'">
+                                        <i class="fa-sharp fa-solid fa-arrow-up-from-bracket"></i> Choose a More Pics</label>
+                                        <p id="num-of-files">No Files Selected</p>
+								</div>
+                                <button type="submit" value="submit" class="genric-btn info e-large"> Submit</button>
+                                <input type="reset" class="genric-btn danger e-large">
+                                <script src="{% static 'TimeZoneApp/js/myedits.js' %}"></script>
+
+
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Align Area -->
+	</main>
+{% endblock %}
+
+{#<input type="file" name="product_thumbnail" id="upload-button" class="genric-btn" style="display: none;" accept="image/*" value="{{ form.product_thumbnail.value|default_if_none:''  }}" required>#}
+{#                                    #}

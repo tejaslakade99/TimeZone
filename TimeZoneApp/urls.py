@@ -9,6 +9,8 @@ urlpatterns = [
     path('success', views.auth_success, name='auth_success'),
     path('index', views.index, name='index'),
     path('contactus', views.contact_us,name='contactus'),
+    path('uploadproduct', views.upload_prod, name="uploadproduct"),
+    path('shopproducts', views.shop_prod, name="shopproducts"),
     #path('error', views.auth_error, name='auth_error')
 
 ]

@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 # Create your views here.
 from django.http import HttpResponse
-from .models import Profile
+from .models import *
 from . import forms
 import uuid
 
@@ -16,6 +16,7 @@ def index(request):
     flag = False
     if request.session.get('user_id') is None:
         flag = True
+
     form = {'user': flag }
     return render(request, 'watches/index.html', form)
 
@@ -117,8 +118,33 @@ def contact_us(request):
             return redirect('contactus')
 
     form = forms.CreateContact()
-    return render(request, "watches/contact_us.html", {'form':form})
+    return render(request, "watches/contact_us.html", {'form': form})
 
+
+def upload_prod(request):
+    if request.method == 'POST':
+        form = forms.CreateProduct(request.POST, request.FILES)
+        images = request.FILES.getlist('images')
+
+        if form.is_valid():
+            form = form.save()
+            count = 1
+            for image in images:
+                image.name = 'otherimages'+str(count)+'.'+image.name.split('.')[-1]
+                count += 1
+                ProductImages.objects.create(product=form, images=image)
+
+            return redirect('login')
+        else:
+            print(form.errors.as_data())
+    form = forms.CreateProduct()
+    form2 = forms.ProductImages()
+    return render(request, 'watches/add_product.html', {'form': form, 'form2': form2})
+
+
+def shop_prod(request):
+    products = Product.objects.all()
+    return render(request, 'watches/shop.html', {'products': products})
 
 # Dynamically checking the username and email exists or not
 
