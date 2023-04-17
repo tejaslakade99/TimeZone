@@ -245,7 +245,7 @@
 	content: "\e648";
 }
 .ti-angle-right:before {
-	content: "\e649";
+	content: "fa-tej fa-solid fa-user fa-lg";
 }
 .ti-angle-left:before {
 	content: "\e64a";

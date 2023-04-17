@@ -142,9 +142,19 @@ def upload_prod(request):
     return render(request, 'watches/add_product.html', {'form': form, 'form2': form2})
 
 
-def shop_prod(request):
-    products = Product.objects.all()
-    return render(request, 'watches/shop.html', {'products': products})
+def shop_prod(request,nproducts=2):
+    # products = Product.objects.all()
+    # Default no of items showed on the page
+
+    products = Product.objects.order_by('product_price')[:nproducts]
+    priceHighToLow = Product.objects.order_by('-product_price')[:nproducts]
+    return render(request, 'watches/shop.html', {'products': products,'priceHighToLow':priceHighToLow})
+
+def product(request,slug):
+    # product = Product.objects.get(product_uuid='b459f199-9140-4764-be43-0eb4f17767e5')
+    product = Product.objects.get(product_uuid=slug)
+    return render(request, 'watches/product.html', {'product': product})
+
 
 # Dynamically checking the username and email exists or not
 
@@ -181,6 +191,7 @@ def check_lname(request):
     if lname.isspace():
         return HttpResponse('<div style="color: red">Only Space is not allowed...</div>')
     return HttpResponse('<div style="color: green"></div>')
+
 
 
 

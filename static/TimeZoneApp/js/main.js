@@ -39,8 +39,8 @@
         dots: false,
         fade: true,
         arrows: false,
-        prevArrow: '<button type="button" class="slick-prev"><i class="ti-shift-left"></i></button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="ti-shift-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa-tej fa-solid fa-angle-left fa-lg"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa-tej fa-solid fa-user-right fa-lg"></i></button>',
         responsive: [{
             breakpoint: 1024,
             settings: {
@@ -98,8 +98,8 @@
         autoplay:false,
         loop:true,
         arrows: true,
-        prevArrow: '<button type="button" class="slick-prev"><i class="ti-angle-left"></i></button>',
-        nextArrow: '<button type="button" class="slick-next"><i class="ti-angle-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa-tej fa-solid fa-angle-left fa-lg"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa-tej fa-solid fa-angle-right fa-lg"></i></button>',
         slidesToShow: 1,
         slidesToScroll: 1,
         responsive: [
@@ -268,7 +268,6 @@
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
       nav: true,
-      dots: false,
       navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
       responsive: {
         0: {
@@ -295,8 +294,7 @@
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
       nav: true,
-      dots: false,
-      navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
+      navText: [" <i class='fa-tej fa-solid fa-angle-left fa-lg'></i> ", "<i class='fa-tej fa-solid fa-angle-right fa-lg'></i> "],
       responsive: {
         0: {
           nav: false

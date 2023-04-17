@@ -40,3 +40,18 @@ function preview() {
     }
 
 }
+
+function changePrice(){
+    var priceChangeTimeout = setTimeout(changePrice1,10);
+}
+
+function changePrice1(){
+    let quantity = document.getElementById('product-quantity').value;
+    let singleprice = document.getElementById('single-product-price').innerText;
+    let finalPrice= parseFloat(singleprice) * (parseFloat(quantity));
+    finalPrice = finalPrice.toFixed(2);
+    document.getElementById('product-price').innerText = finalPrice;
+
+}
+
+document.getElementsByClassName('ti-angle-right').innerText = ">";
