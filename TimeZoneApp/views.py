@@ -6,13 +6,19 @@ from django.conf import settings
 from django.core.mail import send_mail
 # Create your views here.
 from django.http import HttpResponse
-from .models import Profile
+from .models import *
 from . import forms
 import uuid
 
+
 def index(request):
-    print('You are ',request.session.get('user_id'))
-    return render(request,'watches/index.html')
+    print('You are ', request.session.get('user_id'))
+    flag = False
+    if request.session.get('user_id') is None:
+        flag = True
+
+    form = {'user': flag }
+    return render(request, 'watches/index.html', form)
 
 
 def register_user(request):
@@ -112,7 +118,42 @@ def contact_us(request):
             return redirect('contactus')
 
     form = forms.CreateContact()
-    return render(request, "watches/contact_us.html", {'form':form})
+    return render(request, "watches/contact_us.html", {'form': form})
+
+
+def upload_prod(request):
+    if request.method == 'POST':
+        form = forms.CreateProduct(request.POST, request.FILES)
+        images = request.FILES.getlist('images')
+
+        if form.is_valid():
+            form = form.save()
+            count = 1
+            for image in images:
+                image.name = 'otherimages'+str(count)+'.'+image.name.split('.')[-1]
+                count += 1
+                ProductImages.objects.create(product=form, images=image)
+
+            return redirect('login')
+        else:
+            print(form.errors.as_data())
+    form = forms.CreateProduct()
+    form2 = forms.ProductImages()
+    return render(request, 'watches/add_product.html', {'form': form, 'form2': form2})
+
+
+def shop_prod(request,nproducts=2):
+    # products = Product.objects.all()
+    # Default no of items showed on the page
+
+    products = Product.objects.order_by('product_price')[:nproducts]
+    priceHighToLow = Product.objects.order_by('-product_price')[:nproducts]
+    return render(request, 'watches/shop.html', {'products': products,'priceHighToLow':priceHighToLow})
+
+def product(request,slug):
+    # product = Product.objects.get(product_uuid='b459f199-9140-4764-be43-0eb4f17767e5')
+    product = Product.objects.get(product_uuid=slug)
+    return render(request, 'watches/product.html', {'product': product})
 
 
 # Dynamically checking the username and email exists or not
@@ -150,6 +191,7 @@ def check_lname(request):
     if lname.isspace():
         return HttpResponse('<div style="color: red">Only Space is not allowed...</div>')
     return HttpResponse('<div style="color: green"></div>')
+
 
 
 

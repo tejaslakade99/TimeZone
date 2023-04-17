@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Watch shop | eCommers</title>
+    {% block maintitle %}
+        <title>Watch shop | eCommers</title>
+    {% endblock %}
+
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -12,6 +15,8 @@
 
     <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+    <script src="https://kit.fontawesome.com/13e1a1fbb1.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'TimeZoneApp/css/owl.carousel.min.css' %}">
@@ -25,6 +30,7 @@
     <link rel="stylesheet" href="{% static 'TimeZoneApp/css/slick.css' %}/">
     <link rel="stylesheet" href="{% static 'TimeZoneApp/css/nice-select.css' %}/">
     <link rel="stylesheet" href="{% static 'TimeZoneApp/css/style.css' %}/">
+    <link rel="stylesheet" href="{% static 'TimeZoneApp/css/myedits.css' %}/">
 </head>
 <header>
     <!-- Header Start -->
@@ -46,7 +52,7 @@
                                 <li class="hot"><a href="#">Latest</a>
                                     <ul class="submenu">
                                         <li><a href="shop.html"> Product list</a></li>
-                                        <li><a href="product_details.html"> Product Details</a></li>
+                                        <li><a href="product.html"> Product Details</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="blog.html">Blog</a>
@@ -64,20 +70,20 @@
                                         <li><a href="checkout.html">Product Checkout</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="{% url 'contactus' %}">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
                     <!-- Header Right -->
                     <div class="header-right">
                         <ul>
-                            <li>
-                                <div class="nav-search search-switch">
-                                    <span class="flaticon-search"></span>
-                                </div>
-                            </li>
-                            <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
-                            <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
+                            <li><a href="cart.html"><span class="fa-tej fa-solid fa-magnifying-glass fa-lg"></span></a></li>
+                            {% if user %}
+                            <li><a href="cart.html"><span class="fa-tej fa-solid fa-user fa-lg"></span></a></li>
+                            {% else %}
+                            </li><a href="cart.html"><span class="fa-tej fa-solid fa-user-check fa-lg"></span></a></li>
+                            {% endif %}
+                            <li><a href="cart.html"><span class="fa-tej fa-solid fa-cart-shopping fa-lg"></span></a>
                         </ul>
                     </div>
                 </div>
@@ -178,3 +184,60 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </div>
     <!-- Footer End-->
 </footer>
+<!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+
+    <!-- JS here -->
+
+        <script src="{% static '/TimeZoneApp/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+        <!-- Jquery, Popper, Bootstrap -->
+        <script src="{% static '/TimeZoneApp/js/vendor/jquery-1.12.4.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/popper.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/bootstrap.min.js' %}"></script>
+        <!-- Jquery Mobile Menu -->
+        <script src="{% static '/TimeZoneApp/js/jquery.slicknav.min.js' %}"></script>
+
+        <!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="{% static '/TimeZoneApp/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/slick.min.js' %}"></script>
+
+        <!-- One Page, Animated-HeadLin -->
+        <script src="{% static '/TimeZoneApp/js/wow.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/animated.headline.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/jquery.magnific-popup.js' %}"></script>
+
+        <!-- Scroll up, nice-select, sticky -->
+        <script src="{% static '/TimeZoneApp/js/jquery.scrollUp.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/jquery.sticky.js' %}"></script>
+
+        <!-- contact js -->
+        <script src="{% static '/TimeZoneApp/js/contact.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/jquery.form.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/jquery.validate.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/mail-script.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/jquery.ajaxchimp.min.js' %}"></script>
+
+        <!-- Jquery Plugins, main Jquery -->
+        <script src="{% static '/TimeZoneApp/js/plugins.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/main.js' %}"></script>
+
+        <!-- swiper js -->
+        <script src="{% static '/TimeZoneApp/js/swiper.min.js' %}"></script>
+            <!-- swiper js -->
+        <script src="{% static '/TimeZoneApp/js/mixitup.min.js' %}"></script>
+        <script src="{% static '/TimeZoneApp/js/jquery.counterup.min.js' %}"></script>
+        <script src="{% static 'TimeZoneApp/js/waypoints.min.js'%}"></script>
+        <script src="{% static 'TimeZoneApp/js/myedits.js'%}"></script>
+
+</body>
+
+</html>
