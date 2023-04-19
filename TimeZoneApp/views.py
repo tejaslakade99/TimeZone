@@ -4,11 +4,31 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, get_user_model
 from django.conf import settings
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
+from django.views.generic import ListView
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from .models import *
 from . import forms
+from uuid import UUID
 import uuid
+import json
+
+class UUIDEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, UUID):
+            # if the obj is uuid, we simply return the value of uuid
+            return obj.hex
+        return json.JSONEncoder.default(self, obj)
+class ProductSearch(ListView):
+    model = Product
+    template_name = 'watches/base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs_json"] = json.dumps(list(Product.objects.values()),cls=UUIDEncoder,default=str)
+        return context
 
 
 def index(request):
@@ -16,8 +36,10 @@ def index(request):
     flag = False
     if request.session.get('user_id') is None:
         flag = True
-
-    form = {'user': flag }
+    products = Product.objects.order_by('-product_like')[:6]
+    newproducts = Product.objects.order_by('created_at')[:3]
+    mostlikeproducts = Product.objects.order_by('-product_like')[:4]
+    form = {'user': flag,'products':products,'newproducts':newproducts,'mostlikeproducts':mostlikeproducts}
     return render(request, 'watches/index.html', form)
 
 
@@ -142,22 +164,46 @@ def upload_prod(request):
     return render(request, 'watches/add_product.html', {'form': form, 'form2': form2})
 
 
-def shop_prod(request,nproducts=2):
-    # products = Product.objects.all()
-    # Default no of items showed on the page
+def shop_prod(request,pageno=1):
+    filter = request.GET.get('filter','')
+    print(filter)
+    if filter == 'HighToLow':
+        products = Product.objects.order_by('-product_price')
+    elif filter == 'MostPopular':
+        products = Product.objects.order_by('-product_like')
+    else:
+        products = Product.objects.order_by('created_at')
 
-    products = Product.objects.order_by('product_price')[:nproducts]
-    priceHighToLow = Product.objects.order_by('-product_price')[:nproducts]
-    return render(request, 'watches/shop.html', {'products': products,'priceHighToLow':priceHighToLow})
+
+    paginator = Paginator(products,2)
+    page_number=request.GET.get('page')
+    productsfinal=paginator.get_page(page_number)
+    allpages = paginator.num_pages
+
+    return render(request, 'watches/shop.html', {'products': productsfinal,
+                                                 'lastpage':allpages,
+                                                 'pagelist':[n+1 for n in range(allpages)],
+                                                 'paginator':paginator,
+                                                 'currentpage':page_number,
+                                                 'filter':filter})
 
 def product(request,slug):
     # product = Product.objects.get(product_uuid='b459f199-9140-4764-be43-0eb4f17767e5')
     product = Product.objects.get(product_uuid=slug)
     return render(request, 'watches/product.html', {'product': product})
 
+@csrf_exempt
+def search_product(request):
+    searchText = request.POST.get('search')
+    innerDiv = ""
+    products = Product.objects.filter(product_name__icontains=searchText)[:6]
+    if searchText  != '':
+        for product in products:
+            innerDiv+= "<li class='form-control'><a href='http://127.0.0.1:8000/TimeZone/shopproducts/"+str(product.product_uuid)+"/'><span>" + product.product_name + "</span></a></li>"
+
+    return HttpResponse(innerDiv)
 
 # Dynamically checking the username and email exists or not
-
 
 def check_username(request):
     username = request.POST.get('username')
@@ -192,6 +238,14 @@ def check_lname(request):
         return HttpResponse('<div style="color: red">Only Space is not allowed...</div>')
     return HttpResponse('<div style="color: green"></div>')
 
+
+
+# Complete the like functions after the seprate user.
+def increase_like(request):
+    return None
+
+def decrease_like(request):
+    return None
 
 
 

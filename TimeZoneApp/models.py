@@ -49,6 +49,8 @@ class Product(models.Model):
     product_description = models.TextField()
     product_stocks = models.IntegerField(null=False)
     product_thumbnail = models.ImageField(upload_to=user_directory_path)
+    product_like = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.product_name+":"+str(self.product_uuid)

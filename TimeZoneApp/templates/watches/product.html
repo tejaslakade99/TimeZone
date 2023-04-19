@@ -7,26 +7,16 @@
 
 {% block main_content %}
   <main>
-        <!-- Hero Area Start-->
-        <div class="slider-area ">
-            <div class="single-slider slider-height2 d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap text-center">
-                                <h2>Watch Shop</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Hero Area End-->
         <!--================Single Product Area =================-->
-        <div class="product_image_area">
+        <div class="product_image_area" style="margin-top: 50px;">
             <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
+                    <div class="single_product_text text-center">
+                        <h3>{{ product.product_name }}</h3>
+                    </div>
+                </div>
+                <div class="col-lg-8">
                 <div class="product_img_slide owl-carousel owl-loaded owl-drag">
                 <div class="owl-stage-outer">
                     <div class="owl-stage" style="transform: translate3d(-4560px, 0px, 0px); transition: all 0.25s ease 0s; width: 7980px;">
