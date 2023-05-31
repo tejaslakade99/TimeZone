@@ -15,7 +15,7 @@ Insert gif or link to demo
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/tejaslakade99/TimeZone/assets/69455769/f1d45fa8-f29f-4712-ba1b-89995395ff86)
 
 ### Global Search
 
