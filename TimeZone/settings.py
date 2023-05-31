@@ -78,17 +78,17 @@ WSGI_APPLICATION = 'TimeZone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'init_command': "SET sql_modes = 'STRICT_TRANS_TABLES'",
-    },
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql.connector.django',
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'init_command': "SET sql_modes = 'STRICT_TRANS_TABLES'",
+#     },
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -122,8 +122,13 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+## For Local Machine
+# STATIC_URL = 'static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+
+## For Vercel Hosting Platform
+STATIC_URL = os.path.joint(BASE_DIR,'static')
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
