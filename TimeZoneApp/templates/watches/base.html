@@ -40,21 +40,15 @@
                 <div class="menu-wrapper">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="{% static 'TimeZoneApp/img/logo/logo.png' %}" alt=""></a>
+                        <a href="{% url 'index' %}"><img src="{% static 'TimeZoneApp/img/logo/logo.png' %}" alt=""></a>
                     </div>
                     <!-- Main-menu -->
                     <div class="main-menu d-none d-lg-block">
                         <nav>
                             <ul id="navigation">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="shop.html">shop</a></li>
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{% url 'shopproducts' %}">shop</a></li>
                                 <li><a href="about.html">about</a></li>
-                                <li class="hot"><a href="#">Latest</a>
-                                    <ul class="submenu">
-                                        <li><a href="shop.html"> Product list</a></li>
-                                        <li><a href="product.html"> Product Details</a></li>
-                                    </ul>
-                                </li>
                                 <li><a href="blog.html">Blog</a>
                                     <ul class="submenu">
                                         <li><a href="blog.html">Blog</a></li>
@@ -77,13 +71,47 @@
                     <!-- Header Right -->
                     <div class="header-right">
                         <ul>
-                            <li><a href="cart.html"><span class="fa-tej fa-solid fa-magnifying-glass fa-lg"></span></a></li>
-                            {% if user %}
-                            <li><a href="cart.html"><span class="fa-tej fa-solid fa-user fa-lg"></span></a></li>
+                            <li><a href="cart.html" data-toggle="modal" data-target=".bd-example-modal-lg"><span class="fa-tej fa-solid fa-magnifying-glass fa-lg"></span></a></li>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                       <div class="input-group">
+                                               {% csrf_token %}
+                                            <input id="search-product"type="text" class="form-control" name="search" placeholder="Search Watch" hx-post="{% url 'search' %}"
+                                               hx-target="#found-items" hx-trigger="keyup">
+                                        </div>
+                                        <div id="found-items">
+{#                                            <li class="form-control"><a href="cart.html"><span>Hello World</span></a></li>#}
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                            {% if request.user.is_anonymous %}
+                               <div class="dropdown-menu-left">
+                                  <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="fa-tej fa-solid fa-user fa-lg"></span>
+                                  </a>
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item text-primary" href="{% url 'login' %}">Log In/Register</a>
+                                  </div>
+                                </div>
                             {% else %}
-                            </li><a href="cart.html"><span class="fa-tej fa-solid fa-user-check fa-lg"></span></a></li>
+                                <div class="dropdown-menu-left">
+                                  <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="fa-tej fa-solid fa-user-check fa-lg"></span>
+                                  </a>
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="#">{{ request.user }}</a>
+                                      <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">My Orders</a>
+                                      <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Liked Product</a>
+                                      <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="{% url 'logout' %}">Log Out</a>
+                                  </div>
+                                </div>
                             {% endif %}
-                            <li><a href="cart.html"><span class="fa-tej fa-solid fa-cart-shopping fa-lg"></span></a>
+                            <li><a href="{% url 'cart' %}"><span class="fa-tej fa-solid fa-cart-shopping fa-lg"></span></a>
                         </ul>
                     </div>
                 </div>
@@ -124,10 +152,10 @@
                         <div class="footer-tittle">
                             <h4>Quick Links</h4>
                             <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#"> Offers & Discounts</a></li>
-                                <li><a href="#"> Get Coupon</a></li>
-                                <li><a href="#">  Contact Us</a></li>
+                                <li><a href="{% url 'index' %}"> Home</a></li>
+                                <li><a href="#"> About</a></li>
+                                <li><a href="{% url 'shopproducts' %}"> Shop </a></li>
+                                <li><a href="{% url 'contactus' %}">  Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -196,6 +224,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Search model end -->
 
     <!-- JS here -->
+        <script>
+            const search = document.querySelector('#search-product')
+            search.addEventListener("keyup",()=> {
+                console.log("Key is up")
+            })
+
+            console.log(data)
+
+            const rdata = JSON.parse(data.replace(/&quot;/g,'"'))
+            console.log(rdata)
+        </script>
 
         <script src="{% static '/TimeZoneApp/js/vendor/modernizr-3.5.0.min.js' %}"></script>
         <!-- Jquery, Popper, Bootstrap -->
@@ -241,3 +280,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
+
+
