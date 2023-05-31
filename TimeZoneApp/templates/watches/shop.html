@@ -60,9 +60,11 @@
                                 <div class="single-popular-items mb-50 text-center">
                                     <div class="popular-img">
                                         <img src="{{ product.product_thumbnail.url }}" height="360" width="360" alt="" style="object-fit: contain">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
+                                        <form action="">
+                                            <div class="img-cap">
+                                                <a href="{% url 'add_cart' product.product_uuid %}"> <span id="add-item">Add to cart</span></a>
+                                            </div>
+                                        </form>
                                         <div class="favorit-items">
                                             <span class="flaticon-heart"></span>
                                         </div>

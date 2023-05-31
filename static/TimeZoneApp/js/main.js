@@ -474,6 +474,7 @@
               value--;
               if(!min || value >= min) {
                 el[0].value = value;
+                el[0].innerText = value;
               }
             }
 
@@ -492,7 +493,7 @@
         setInterval(function () {
           makeTimer();
         }, 1000);
-      
+
 
       $('.select_option_dropdown').hide();
       $(".select_option_list").click(function () {

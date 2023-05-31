@@ -49,12 +49,6 @@
                                 <li><a href="{% url 'index' %}">Home</a></li>
                                 <li><a href="{% url 'shopproducts' %}">shop</a></li>
                                 <li><a href="about.html">about</a></li>
-                                <li class="hot"><a href="#">Latest</a>
-                                    <ul class="submenu">
-                                        <li><a href="shop.html"> Product list</a></li>
-                                        <li><a href="product.html"> Product Details</a></li>
-                                    </ul>
-                                </li>
                                 <li><a href="blog.html">Blog</a>
                                     <ul class="submenu">
                                         <li><a href="blog.html">Blog</a></li>
@@ -92,7 +86,7 @@
                                 </div>
                             </div>
                         </div>
-                            {% if user %}
+                            {% if request.user.is_anonymous %}
                                <div class="dropdown-menu-left">
                                   <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="fa-tej fa-solid fa-user fa-lg"></span>
@@ -104,19 +98,20 @@
                             {% else %}
                                 <div class="dropdown-menu-left">
                                   <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="fa-tej fa-solid fa-user fa-lg"></span>
+                                    <span class="fa-tej fa-solid fa-user-check fa-lg"></span>
                                   </a>
                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="#">{{ request.user }}</a>
+                                      <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">My Orders</a>
                                       <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Liked Product</a>
                                       <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" href="#">Log Out</a>
+                                    <a class="dropdown-item text-danger" href="{% url 'logout' %}">Log Out</a>
                                   </div>
                                 </div>
-                            </li><a href="cart.html"><span class="fa-tej fa-solid fa-user-check fa-lg"></span></a></li>
                             {% endif %}
-                            <li><a href="cart.html"><span class="fa-tej fa-solid fa-cart-shopping fa-lg"></span></a>
+                            <li><a href="{% url 'cart' %}"><span class="fa-tej fa-solid fa-cart-shopping fa-lg"></span></a>
                         </ul>
                     </div>
                 </div>

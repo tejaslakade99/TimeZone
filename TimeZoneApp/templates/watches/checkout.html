@@ -1,0 +1,122 @@
+{% extends 'watches/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block main_content %}
+   <main>
+        <!-- Hero Area Start-->
+        <div class="slider-area ">
+            <div class="single-slider slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap text-center">
+                                <h2>Checkout</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--================Checkout Area =================-->
+        <section class="checkout_area section_padding">
+          <div class="container">
+            <div class="cupon_area">
+              <div class="check_title">
+                <h2>
+                  Have a coupon?
+                  <a href="#">Click here to enter your code</a>
+                </h2>
+              </div>
+              <input type="text" placeholder="Enter coupon code" />
+              <a class="tp_btn" href="#">Apply Coupon</a>
+            </div>
+            <div class="billing_details">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h3>Shipping & Billing Details</h3>
+                  <form class="row contact_form" action="" id="form-k" method="post" novalidate="novalidate">
+                    {% csrf_token %}
+                      <div class="col-md-6 form-group p_star">
+                        {% render_field form.first_name class="form-control" id="first" placeholder="First Name" %}
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                      {% render_field form.last_name class="form-control" id="last" placeholder="Last Name" %}
+                    </div>
+                    <div class="col-md-12 form-group">
+                      <input type="text" class="form-control" id="company" name="company" placeholder="Company name" />
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        {% render_field form.phone class="form-control" id="number" placeholder="Mobile Number" %}
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        {% render_field form.landmark class="form-control" id="landmark" name="landmark" placeholder="Landmark" %}
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        {% render_field form.state class="country_select" %}
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                      {% render_field form.address_line1 class="form-control" name="add1" placeholder="Address Line 1" %}
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                      {% render_field form.address_line2 class="form-control" name="add2" placeholder="Address Line 2" %}
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        {% render_field form.district class="form-control" id="city" name="city" placeholder="Town/City" %}
+                    </div>
+                    <div class="col-md-12 form-group">
+                        {% render_field form.pincode class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" %}
+                    </div>
+                    <div class="col-md-12 form-group">
+                        {% render_field form.type class="form-control" %}
+                    </div>
+                  </form>
+                </div>
+                <div class="col-lg-4">
+                  <div class="order_box">
+                    <h2>Your Order</h2>
+                    <ul class="list">
+                      <li>
+                        <a href="#">Product
+                          <span>Total</span>
+                        </a>
+                      </li>
+                        {% for item in cart %}
+                      <li>
+                        <a href="{% url 'product' slug=item.product_id.product_uuid %}" title="{{ item.product_id.product_name }}">{{ item.product_id.product_name|truncatechars:25 }}
+                          <span class="middle">x {{ item.quantity }}</span>
+                          <span class="last">${% widthratio item.quantity 1 item.product_id.product_price %}</span>
+                        </a>
+                      </li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="list list_2">
+                      <li>
+                        <a href="#">Subtotal
+                          <span>${{ subTotal }}</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">Shipping
+                          <span>Charges: $200.00</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">Total
+                          <span>${{ Total }}</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="payment_item active">
+                    </div>
+                    <a class="btn_3" onclick="$('#form-k').submit()">Proceed to Paypal</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--================End Checkout Area =================-->
+    </main>
+
+{% endblock %}

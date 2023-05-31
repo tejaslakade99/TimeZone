@@ -52,5 +52,11 @@ class ProductImages(forms.ModelForm):
         model = models.ProductImages
         fields = ['images']
 
+class CreateAddress(forms.ModelForm):
+
+    class Meta:
+        model = models.Address
+        fields = '__all__'
+
 
 

@@ -55,3 +55,4 @@ function changePrice1(){
 }
 
 document.getElementsByClassName('ti-angle-right').innerText = ">";
+

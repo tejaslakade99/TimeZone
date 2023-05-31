@@ -1,0 +1,131 @@
+{% extends 'watches/base.html' %}
+{% load static %}
+
+{% block main_content %}
+     <main>
+      <!-- Hero Area Start-->
+      <div class="slider-area ">
+          <div class="single-slider slider-height2 d-flex align-items-center">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-xl-12">
+                          <div class="hero-cap text-center">
+                              <h2>Cart List</h2>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+     {% if cart %}
+      <!--================Cart Area =================-->
+      <section class="cart_area section_padding">
+        <div class="container">
+          <div class="cart_inner">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for cart_item in cart %}
+                  <tr>
+                    <td>
+                      <div class="media">
+                        <div class="d-flex">
+                          <img src="" alt="" />
+                        </div>
+                        <div class="media-body">
+                          <p>{{ cart_item.product_id.product_name }}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <h5>₹{{ cart_item.product_id.product_price }}</h5>
+                    </td>
+                    <td>
+                      <div class="product_count">
+                          <form action="" method="post">
+                          {% csrf_token %}
+                          {% if cart_item.product_id.product_stocks > cart_item.quantity %}
+                          <button class="btn_4" name="operation" value="+" type="submit">+</button>
+                          {% endif %}
+                              <input name="usercartproduct_id" type="text" value="{{ cart_item.id }}" style="display: none;">
+                          {% if cart_item.product_id.product_stocks > 10 %}
+                              <input class="input-number" type="number" value="{{ cart_item.quantity }}" min="1" max="10" readonly>
+                          {% else %}
+                              <input class="form-control form-icon-trailing" type="number" value="{{ cart_item.quantity }}" min="1" max="{{ cart_item.product_id.product_stocks }}" readonly>
+                          {% endif %}
+                          {% if cart_item.quantity > 1 %}
+                          <button class="btn_4" name="operation" value="-" type="submit">-</button>
+                          {% else %}
+                              <button class="btn_4" name="operation" value="-" type="submit" disabled>-</button>
+                          {% endif %}
+                      </div>
+                    </td>
+                    <td>
+                      <h5 id="total-price">₹{% widthratio cart_item.quantity 1 cart_item.product_id.product_price %}</h5>
+                    </td>
+                    <td><button class="genric-btn danger-border small" name="operation" type="submit">X</button></td>
+                  </form>
+                  </tr>
+                {% endfor %}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <h5>Subtotal</h5>
+                    </td>
+                    <td>
+                      <h5>₹{{ subtotal }}</h5>
+                    </td>
+                  </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <h5>Shipping Charges</h5>
+                    </td>
+                    <td>
+                      <h5>₹200.00</h5>
+                    </td>
+                  </tr>
+                  <tr class="shipping_area">
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <h5>Total</h5>
+                    </td>
+                    <td>
+                        <h5>₹{{ Total }}</h5>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="checkout_btn_inner float-right">
+                <a class="btn_1" href="#">Continue Shopping</a>
+                <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+              </div>
+            </div>
+          </div>
+      </section>
+      <!--================End Cart Area =================-->
+     {% else %}
+         <section class="cart_area section_padding">
+         <div class="container">
+             <div class="cart d-flex flex-column align-items-center justify-content-center">
+                 <h1 class="p-2">Your cart is empty!</h1>
+                 <h4 class="p-2">Add items to it now.</h4>
+                 <a class="btn_1 p-2" href="{% url 'shopproducts' %}">Shop Now</a>
+             </div>
+         </div>
+         </section>
+     {% endif %}
+  </main>>
+{% endblock %}
