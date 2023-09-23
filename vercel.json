@@ -9,7 +9,7 @@
     {
       "src": "build_files.sh",
       "use": "@vercel/static-build",
-      "config": {"distDir": "static"}
+      "config": {"distDir": "staticfiles_build"}
     }
   ],
   "routes": [
@@ -21,5 +21,6 @@
       "src": "/(.*)",
       "dest": "TimeZone/wsgi.py"
     }
-  ]
+  ],
+  "outputDirectory": "staticfiles_build"
 }
