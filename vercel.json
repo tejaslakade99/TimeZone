@@ -23,5 +23,6 @@
       "src": "/(.*)",
       "dest": "TimeZone/wsgi.py"
     }
-  ]
+  ],
+  "outputDirectory": "staticfiles_build"
 }
