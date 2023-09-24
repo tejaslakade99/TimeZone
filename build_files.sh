@@ -7,6 +7,6 @@ python3.9 manage.py makemigrations
 python3.9 manage.py migrate
 echo "MIGRATION FINISHED"
 
-python3.9 manage.py createsuperuser --username="Tejas" --email="tejaslakade99@gmail.com"
+winpty python3.9 manage.py createsuperuser --username="Tejas" --email="tejaslakade99@gmail.com"
 
 echo "BUILD END"
