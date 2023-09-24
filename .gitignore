@@ -4,3 +4,4 @@
 update_requirements.py
 requirements.txt
 media
+.vercel

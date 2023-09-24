@@ -1,5 +1,10 @@
 echo "BUILD START"
 python3.9 -m pip install -r requirements.txt
 python3.9 manage.py collectstatic --noinput --clear
+
+echo "MIGRATION STARTED"
+python 3.9 manage.py makemigrations
+python 3.9 manage.oy migrate
+echo "MIGRATION FINISHED"
+
 echo "BUILD END"
-python3.9 manage.py collectstatic --noinput
