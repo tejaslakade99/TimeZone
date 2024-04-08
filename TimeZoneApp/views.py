@@ -139,6 +139,9 @@ def auth_success(request):
     return render(request, 'watches/auth_success.html')
 
 
+def about(request):
+    return render(request, 'watches/about.html')
+
 def contact_us(request):
     if request.method == 'POST':
         form = forms.CreateContact(request.POST, request.FILES)

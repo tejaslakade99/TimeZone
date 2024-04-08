@@ -48,7 +48,7 @@
                             <ul id="navigation">
                                 <li><a href="{% url 'index' %}">Home</a></li>
                                 <li><a href="{% url 'shopproducts' %}">shop</a></li>
-                                <li><a href="about.html">about</a></li>
+                                <li><a href="{% url 'about' %}">about</a></li>
                                 <li><a href="blog.html">Blog</a>
                                     <ul class="submenu">
                                         <li><a href="blog.html">Blog</a></li>
@@ -71,44 +71,55 @@
                     <!-- Header Right -->
                     <div class="header-right">
                         <ul>
-                            <li><a href="cart.html" data-toggle="modal" data-target=".bd-example-modal-lg"><span class="fa-tej fa-solid fa-magnifying-glass fa-lg"></span></a></li>
-                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                       <div class="input-group">
-                                               {% csrf_token %}
-                                            <input id="search-product"type="text" class="form-control" name="search" placeholder="Search Watch" hx-post="{% url 'search' %}"
-                                               hx-target="#found-items" hx-trigger="keyup">
+                            <li>
+                                <div class="nav-search search-switch">
+                                    <span class="fa-tej fa-solid fa-magnifying-glass fa-lg">
+
+                                    </span>
+                                </div>
+                            </li>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="input-group">
+                                            {% csrf_token %}
+                                            <input id="search-product" type="text" class="form-control" name="search"
+                                                   placeholder="Search Watch" hx-post="{% url 'search' %}"
+                                                   hx-target="#found-items" hx-trigger="keyup">
                                         </div>
                                         <div id="found-items">
-{#                                            <li class="form-control"><a href="cart.html"><span>Hello World</span></a></li>#}
+                                                                                        <li class="form-control"><a href="cart.html"><span>Hello World</span></a></li>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                             {% if request.user.is_anonymous %}
-                               <div class="dropdown-menu-left">
-                                  <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="fa-tej fa-solid fa-user fa-lg"></span>
-                                  </a>
-                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item text-primary" href="{% url 'login' %}">Log In/Register</a>
-                                  </div>
+                                <div class="dropdown-menu-left">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false">
+                                        <span class="fa-tej fa-solid fa-user fa-lg"></span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item text-primary" href="{% url 'login' %}">Log
+                                            In/Register</a>
+                                    </div>
                                 </div>
                             {% else %}
                                 <div class="dropdown-menu-left">
-                                  <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="fa-tej fa-solid fa-user-check fa-lg"></span>
-                                  </a>
-                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <a class="dropdown-item" href="#">{{ request.user }}</a>
-                                      <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">My Orders</a>
-                                      <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Liked Product</a>
-                                      <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" href="{% url 'logout' %}">Log Out</a>
-                                  </div>
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false">
+                                        <span class="fa-tej fa-solid fa-user-check fa-lg"></span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">{{ request.user }}</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">My Orders</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Liked Product</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-danger" href="{% url 'logout' %}">Log Out</a>
+                                    </div>
                                 </div>
                             {% endif %}
                             <li><a href="{% url 'cart' %}"><span class="fa-tej fa-solid fa-cart-shopping fa-lg"></span></a>
@@ -137,12 +148,14 @@
                         <div class="single-footer-caption mb-30">
                             <!-- logo -->
                             <div class="footer-logo">
-                                <a href="index.html"><img src="{% static 'TimeZoneApp/img/logo/logo2_footer.png' %}" alt=""></a>
+                                <a href="index.html"><img src="{% static 'TimeZoneApp/img/logo/logo2_footer.png' %}"
+                                                          alt=""></a>
                             </div>
                             <div class="footer-tittle">
                                 <div class="footer-pera">
-                                    <p>Asorem ipsum adipolor sdit amet, consectetur adipisicing elitcf sed do eiusmod tem.</p>
-                            </div>
+                                    <p>Asorem ipsum adipolor sdit amet, consectetur adipisicing elitcf sed do eiusmod
+                                        tem.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,7 +168,7 @@
                                 <li><a href="{% url 'index' %}"> Home</a></li>
                                 <li><a href="#"> About</a></li>
                                 <li><a href="{% url 'shopproducts' %}"> Shop </a></li>
-                                <li><a href="{% url 'contactus' %}">  Contact Us</a></li>
+                                <li><a href="{% url 'contactus' %}"> Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -192,8 +205,11 @@
                 <div class="col-xl-7 col-lg-8 col-md-7">
                     <div class="footer-copy-right">
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="fa fa-heart"
+                                                                                aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
                 <div class="col-xl-5 col-lg-4 col-md-5">
@@ -213,69 +229,69 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Footer End-->
 </footer>
 <!--? Search model Begin -->
-    <div class="search-model-box">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-btn">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Searching key.....">
-            </form>
-        </div>
+<div class="search-model-box">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-btn">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Searching key.....">
+        </form>
     </div>
-    <!-- Search model end -->
+</div>
+<!-- Search model end -->
 
-    <!-- JS here -->
-        <script>
-            const search = document.querySelector('#search-product')
-            search.addEventListener("keyup",()=> {
-                console.log("Key is up")
-            })
+<!-- JS here -->
+<script>
+    const search = document.querySelector('#search-product')
+    search.addEventListener("keyup",()=> {
+        console.log("Key is up")
+    })
 
-            console.log(data)
+    console.log(data)
 
-            const rdata = JSON.parse(data.replace(/&quot;/g,'"'))
-            console.log(rdata)
-        </script>
+    const rdata = JSON.parse(data.replace(/&quot;/g,'"'))
+    console.log(rdata)
+</script>
 
-        <script src="{% static '/TimeZoneApp/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-        <!-- Jquery, Popper, Bootstrap -->
-        <script src="{% static '/TimeZoneApp/js/vendor/jquery-1.12.4.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/popper.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/bootstrap.min.js' %}"></script>
-        <!-- Jquery Mobile Menu -->
-        <script src="{% static '/TimeZoneApp/js/jquery.slicknav.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static '/TimeZoneApp/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/popper.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static '/TimeZoneApp/js/jquery.slicknav.min.js' %}"></script>
 
-        <!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="{% static '/TimeZoneApp/js/owl.carousel.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/slick.min.js' %}"></script>
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static '/TimeZoneApp/js/owl.carousel.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/slick.min.js' %}"></script>
 
-        <!-- One Page, Animated-HeadLin -->
-        <script src="{% static '/TimeZoneApp/js/wow.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/animated.headline.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/jquery.magnific-popup.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static '/TimeZoneApp/js/wow.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/animated.headline.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/jquery.magnific-popup.js' %}"></script>
 
-        <!-- Scroll up, nice-select, sticky -->
-        <script src="{% static '/TimeZoneApp/js/jquery.scrollUp.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/jquery.nice-select.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/jquery.sticky.js' %}"></script>
+<!-- Scroll up, nice-select, sticky -->
+<script src="{% static '/TimeZoneApp/js/jquery.scrollUp.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/jquery.sticky.js' %}"></script>
 
-        <!-- contact js -->
-        <script src="{% static '/TimeZoneApp/js/contact.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/jquery.form.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/jquery.validate.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/mail-script.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/jquery.ajaxchimp.min.js' %}"></script>
+<!-- contact js -->
+<script src="{% static '/TimeZoneApp/js/contact.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/jquery.form.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/jquery.validate.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/mail-script.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/jquery.ajaxchimp.min.js' %}"></script>
 
-        <!-- Jquery Plugins, main Jquery -->
-        <script src="{% static '/TimeZoneApp/js/plugins.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/main.js' %}"></script>
+<!-- Jquery Plugins, main Jquery -->
+<script src="{% static '/TimeZoneApp/js/plugins.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/main.js' %}"></script>
 
-        <!-- swiper js -->
-        <script src="{% static '/TimeZoneApp/js/swiper.min.js' %}"></script>
-            <!-- swiper js -->
-        <script src="{% static '/TimeZoneApp/js/mixitup.min.js' %}"></script>
-        <script src="{% static '/TimeZoneApp/js/jquery.counterup.min.js' %}"></script>
-        <script src="{% static 'TimeZoneApp/js/waypoints.min.js'%}"></script>
-        <script src="{% static 'TimeZoneApp/js/myedits.js'%}"></script>
+<!-- swiper js -->
+<script src="{% static '/TimeZoneApp/js/swiper.min.js' %}"></script>
+<!-- swiper js -->
+<script src="{% static '/TimeZoneApp/js/mixitup.min.js' %}"></script>
+<script src="{% static '/TimeZoneApp/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'TimeZoneApp/js/waypoints.min.js' %}"></script>
+<script src="{% static 'TimeZoneApp/js/myedits.js' %}"></script>
 
 </body>
 
